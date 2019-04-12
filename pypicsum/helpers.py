@@ -36,6 +36,7 @@ class Picsum:
         self.blurred = blurred
         self.gravity = gravity
         self._image_call = requests.get(self.request_url)
+        self._filename = ""
 
     @property
     def request_url(self) -> str:
@@ -80,7 +81,17 @@ class Picsum:
 
         return self._image_call.url
 
-    def save(self, path: Optional[str] = None) -> None:
+    @property
+    def filename(self) -> str:
+        """
+        Return the filename to which the image was saved.
+        :return: str
+        """
+        return self._filename
+
+    def save(self,
+             path: Optional[str] = None,
+             ext: str = "png") -> None:
         """Save the retrieved image to a png file.
 
         Save the image retrieved from Picsum to a file in png format. If
@@ -90,26 +101,27 @@ class Picsum:
         saved to the given filename (automatically appending the .png
         suffix).
         :param Optional[str] path: path/filename to save the image
+        :param str ext: output file extension (default: png)
         :return: None
         """
         # TODO: add option to specify desired image format
-        rnd_name = "{}.png".format(random_string())
+        rnd_name = "{}.{}".format(random_string(), ext)
         if path:
             if os.path.isdir(path):
                 while os.path.isfile(os.path.join(path, rnd_name)):
-                    rnd_name = "{}.png".format(random_string())
-                filename = os.path.join(path, rnd_name)
+                    rnd_name = "{}.{}".format(random_string(), ext)
+                self._filename = os.path.join(path, rnd_name)
             elif os.path.isfile(path):
                 raise FileExistsError("File {} already exists!".format(path),
                                       "Please provide a different filename.")
             else:
-                filename = path
+                self._filename = path
         else:
             while os.path.isfile(rnd_name):
-                rnd_name = "{}.png".format(random_string())
-            filename = rnd_name
+                rnd_name = "{}.{}".format(random_string(), ext)
+            self._filename = rnd_name
 
-        with open(filename, "wb") as f:
+        with open(self._filename, "wb") as f:
             f.write(self.image)
 
         return
