@@ -14,3 +14,7 @@ History
 * Replace random option to specify an image number;
 * Add basic tests for random_string helper function.
 
+0.2.0 (2019-04-28)
+------------------
+
+* Update API to reflect new implementation of picsum.photos.
