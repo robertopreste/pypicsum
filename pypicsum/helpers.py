@@ -10,7 +10,9 @@ def random_string(length: int = 12) -> str:
 
     Return a random alphanumeric string of the given length, which will
     be used for the image filename.
+
     :param int length: desired length of the random string (default: 12)
+
     :return: str
     """
     source = ascii_letters + digits

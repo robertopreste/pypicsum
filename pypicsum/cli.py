@@ -12,31 +12,30 @@ from pypicsum.classes import Picsum
 @click.option("--height", "-H", default=None,
               help="""Height of the image, if not provided returns a square 
               image (default: None)""")
-@click.option("--image", "-i", default=None,
+@click.option("--image", "-i", default=None, type=int,
               help="""Return a specific image instead of a random one 
               (default: None)""")
 @click.option("--grayscale", "-g", is_flag=True, default=False,
               help="""Return the grayscale version of the image 
               (default: False)""")
-@click.option("--blurred", "-b", is_flag=True, default=False,
-              help="""Return the blurred version of the image 
-              (default: False)""")
-@click.option("--gravity", "-G", default=None,
-              help="""Gravity crop of the image, accepts one of 'north', 
-              'east', 'south', 'west', 'center' (default: None)""")
+@click.option("--blur", "-b", default=None, type=int,
+              help="""Return the blurred version of the image and optionally 
+              select a blurring value between 1 and 10 (default: False)""")
 @click.option("--save_path", "-p", default=None,
-              help="""Path/filename to save the image.""")
+              help="""Path/filename to save the image 
+              (default: random string in current path).""")
 @click.option("--save_ext", "-e", default="png",
+              type=click.Choice(["png", "jpeg", "jpg"]),
               help="""Output file extension (default: png)""")
 @click.option("--show_url", "-u", is_flag=True, default=False,
               help="""Return the url used to retrieve the image 
               (default: False)""")
-def main(width, height, image, grayscale, blurred, gravity,
+def main(width, height, image, grayscale, blur,
          save_path, save_ext, show_url):
     """
     Retrieve an image from picsum.photos and save it.
     """
-    p = Picsum(width, height, image, grayscale, blurred, gravity)
+    p = Picsum(width, height, image, grayscale, blur)
     p.save(save_path, save_ext)
     click.echo("Image saved to {}".format(p.filename))
     if show_url:

@@ -11,16 +11,19 @@ class Picsum:
     """Class used to retrieve an image from Picsum and save it locally.
 
     :param int width: width of the image (default: 500)
+
     :param Optional[int] height: height of the image, if not provided
-    returns a square image (default: None)
+        returns a square image (default: None)
+
     :param Optional[int] image: return a specific image instead of a
-    random one (default: None)
+        random one (default: None)
+
     :param bool grayscale: return the grayscale version of the image
-    (default: False)
-    :param bool blurred: return the blurred version of the image
-    (default: False)
-    :param Optional[str] gravity: gravity crop of the image, accepts one
-    of 'north', 'east', 'south', 'west', 'center' (default: None)
+        (default: False)
+
+    :param Union[bool,int] blur: return a blurred version of the image
+        and optionally select a blurring value between 1 and 10
+        (default: False)
 
     # random 500 x 500 px image
     >>> Picsum()
@@ -33,14 +36,12 @@ class Picsum:
                  height: Optional[int] = None,
                  image: Optional[int] = None,
                  grayscale: bool = False,
-                 blurred: bool = False,
-                 gravity: Optional[str] = None):
+                 blur: Union[bool, int] = False):
         self.width = width
         self.height = height
         self.image = image
         self.grayscale = grayscale
-        self.blurred = blurred
-        self.gravity = gravity
+        self.blur = blur
         self._request_call = requests.get(self.request_url)
         self._filename = ""
 
@@ -49,45 +50,48 @@ class Picsum:
         """Return the url to call.
 
         Return the url used retrieve the image from Picsum.
+
         :return: str
         """
         base_url = "https://picsum.photos"
-        if self.grayscale:
-            base_url += "/g"
+        if self.image:
+            if not isinstance(self.image, int):
+                raise ValueError("Please provide an integer number.")
+            base_url += "/id/{}".format(self.image)
         base_url += "/{}".format(self.width)
         if self.height:
             base_url += "/{}".format(self.height)
-        if self.image:
-            if not isinstance(self.image, int):
-                raise ValueError("Please provide a integer number.")
-            base_url += "?/image={}".format(self.image)
-        else:
-            base_url += "/?random"
-        if self.blurred:
-            base_url += "/?blur"
-        if self.gravity:
-            if self.gravity not in ["north", "east", "south", "west",
-                                    "center"]:
-                raise ValueError("Please provide either 'north', 'east', " 
-                                 "'south', 'west' or 'center'. ")
-            base_url += "/?gravity={}".format(self.gravity)
+        if self.grayscale:
+            base_url += "/?grayscale"
+        if self.blur:
+            if self.grayscale:
+                base_url += "&blur"
+            else:
+                base_url += "/?blur"
+            if isinstance(self.blur, int):
+                if self.blur not in range(1, 11):
+                    raise ValueError("Please provide an integer number "
+                                     "between 1 and 10.")
+                base_url += "={}".format(self.blur)
 
         return base_url
 
     @property
     def pic(self) -> bytes:
-        """Return he retrieved image bytes.
+        """Return the retrieved image bytes.
 
         Return the actual content of the image, which can be saved as png.
+
         :return: bytes
         """
         return self._request_call.content
 
     @property
     def url(self) -> str:
-        """Return the image url.
+        """Return the Picsum image url.
 
         Return the url used to retrieve the image (after parsing by Picsum).
+
         :return: str
         """
 
@@ -98,6 +102,7 @@ class Picsum:
         """Return the output file name.
 
         Return the filename to which the image was saved.
+
         :return: str
         """
         return self._filename
@@ -113,8 +118,11 @@ class Picsum:
         with the same name already exist. Otherwise, the image will be
         saved to the given filename (automatically appending the .png
         suffix).
+
         :param Optional[str] path: path/filename to save the image
+
         :param str ext: output file extension (default: png)
+
         :return: True
         """
         if ext not in ["png", "jpeg", "jpg"]:
