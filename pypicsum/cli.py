@@ -21,7 +21,7 @@ from pypicsum.classes import Picsum
 @click.option("--blur", "-b", default=None, type=int,
               help="""Return the blurred version of the image and optionally 
               select a blurring value between 1 and 10 (default: False)""")
-@click.option("--save_path", "-p", default=None,
+@click.option("--save_path", "-s", default=None,
               help="""Path/filename to save the image 
               (default: random string in current path).""")
 @click.option("--save_ext", "-e", default="png",
