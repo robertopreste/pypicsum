@@ -60,9 +60,31 @@ def create_img_500x500_id_3_grayscale_blur():
     return
 
 
+def create_img_800x600_id_5_jpg():
+    pic = Picsum(width=800, height=600, id_=5)
+    try:
+        pic.save(path=os.path.join(IMGDIR, "img_800x600_id_5.jpg"))
+    except FileExistsError:
+        os.remove(os.path.join(IMGDIR, "img_800x600_id_5.jpg"))
+        pic.save(path=os.path.join(IMGDIR, "img_800x600_id_5.jpg"))
+    return
+
+
+def create_img_800x600_id_5_jpeg():
+    pic = Picsum(width=800, height=600, id_=5)
+    try:
+        pic.save(path=os.path.join(IMGDIR, "img_800x600_id_5.jpeg"))
+    except FileExistsError:
+        os.remove(os.path.join(IMGDIR, "img_800x600_id_5.jpeg"))
+        pic.save(path=os.path.join(IMGDIR, "img_800x600_id_5.jpeg"))
+    return
+
+
 def main():
     create_img_500x500_id_3()
     create_img_800x600_id_5()
+    create_img_800x600_id_5_jpg()
+    create_img_800x600_id_5_jpeg()
     create_img_500x500_id_3_grayscale()
     create_img_500x500_id_3_blur()
     create_img_500x500_id_3_grayscale_blur()

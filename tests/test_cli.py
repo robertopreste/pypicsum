@@ -58,6 +58,24 @@ def test_img_500x500_id_3_grayscale_blur(img_500x500_id_3_grayscale_blur):
     assert equal_imgs(img_500x500_id_3_grayscale_blur, TESTIMG)
 
 
+def test_img_800x600_id_5_jpg(img_800x600_id_5_jpg):
+    """Test retrieval of a 800x600 img with id 5 and jpg format."""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, ["-W", "800", "-H", "600",
+                                      "-i", "5", "-s", TESTIMG, "-e", "jpg"])
+    assert result.exit_code == 0
+    assert equal_imgs(img_800x600_id_5_jpg, TESTIMG)
+
+
+def test_img_800x600_id_5_jpeg(img_800x600_id_5_jpeg):
+    """Test retrieval of a 800x600 img with id 5 and jpg format."""
+    runner = CliRunner()
+    result = runner.invoke(cli.main, ["-W", "800", "-H", "600",
+                                      "-i", "5", "-s", TESTIMG, "-e", "jpeg"])
+    assert result.exit_code == 0
+    assert equal_imgs(img_800x600_id_5_jpeg, TESTIMG)
+
+
 def teardown_function():
     os.remove(TESTIMG)
 

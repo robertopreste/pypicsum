@@ -31,3 +31,13 @@ def img_500x500_id_3_blur():
 @pytest.fixture
 def img_500x500_id_3_grayscale_blur():
     return os.path.join(IMGDIR, "img_500x500_id_3_grayscale_blur.png")
+
+
+@pytest.fixture
+def img_800x600_id_5_jpg():
+    return os.path.join(IMGDIR, "img_800x600_id_5.jpg")
+
+
+@pytest.fixture
+def img_800x600_id_5_jpeg():
+    return os.path.join(IMGDIR, "img_800x600_id_5.jpeg")

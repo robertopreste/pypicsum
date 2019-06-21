@@ -127,7 +127,7 @@ class Picsum:
 
     def save(self,
              path: Optional[str] = None,
-             ext: str = "png") -> bool:
+             ext: str = "png"):
         """Save the retrieved image to a file.
 
         Save the image retrieved from Picsum to a file in given format. If
@@ -141,7 +141,7 @@ class Picsum:
 
         :param str ext: output file extension (default: png)
 
-        :return: True
+        :return:
         """
         if ext not in ["png", "jpeg", "jpg"]:
             raise ValueError("Filetype not allowed." 
@@ -165,6 +165,6 @@ class Picsum:
         with open(self._filename, "wb") as f:
             f.write(self.pic)
 
-        return True
+        return
 
 
