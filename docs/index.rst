@@ -1,5 +1,9 @@
-Welcome to pypicsum's documentation!
-======================================
+.. include:: ../README.rst
+
+____
+
+Table of Contents
+=================
 
 .. toctree::
    :maxdepth: 2
@@ -8,7 +12,7 @@ Welcome to pypicsum's documentation!
    readme
    installation
    usage
-   modules
+   api
    contributing
    authors
    history

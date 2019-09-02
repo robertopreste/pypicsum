@@ -4,7 +4,7 @@ Installation
 
 
 Stable release
---------------
+==============
 
 To install pypicsum, run this command in your terminal:
 
@@ -22,7 +22,7 @@ you through the process.
 
 
 From sources
-------------
+============
 
 The sources for pypicsum can be downloaded from the `Github repo`_.
 
