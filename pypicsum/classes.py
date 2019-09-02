@@ -15,24 +15,33 @@ class Picsum:
     IPython.display.Image(), or it can be saved locally using
     Picsum.save().
 
-    :param int width: width of the image (default: 500)
+    Args:
+        width (int): width of the image (default: 500)
+        height (Optional[int]): height of the image, if not provided
+            returns a square image (default: None)
+        id_ (Optional[int]): return a specific image instead of a
+            random one (default: None)
+        grayscale (bool): return the grayscale version of the image
+            (default: False)
+        blur (Optional[int]): return a blurred version of the image
+            and select a blurring value between 1 and 10 (default: None)
 
-    :param Optional[int] height: height of the image, if not provided
-        returns a square image (default: None)
+    Attributes:
+        self.request_url: url used to retrieve the image from Picsum
+        self.pic: the actual content of the image, which can be saved as png
+        self.url: url used to retrieve the image (after parsing by Picsum)
+        self.filename: filename to which the image was (or will be) saved
 
-    :param Optional[int] id_: return a specific image instead of a
-        random one (default: None)
+    Methods:
+        self.random_string(): return a random alphanumeric string of the
+            given length
+        self.save(): save the retrieved image to a file
 
-    :param bool grayscale: return the grayscale version of the image
-        (default: False)
-
-    :param Optional[int] blur: return a blurred version of the image
-        and select a blurring value between 1 and 10 (default: None)
-
-    # random 500 x 500 px image
-    >>> Picsum()
-    # random 500 x 800 px image
-    >>> Picsum(500, 800)
+    Examples:
+        # random 500 x 500 px image
+        >>> Picsum()
+        # random 500 x 800 px image
+        >>> Picsum(500, 800)
     """
 
     def __init__(self,
@@ -53,9 +62,10 @@ class Picsum:
     def request_url(self) -> str:
         """Return the url to call.
 
-        Return the url used retrieve the image from Picsum.
+        Return the url used to retrieve the image from Picsum.
 
-        :return: str
+        Returns:
+            str
         """
         base_url = "https://picsum.photos"
         if self.id_ or self.id_ == 0:
@@ -81,11 +91,12 @@ class Picsum:
 
     @property
     def pic(self) -> bytes:
-        """Return the retrieved image bytes.
+        """Return the retrieved image in bytes.
 
         Return the actual content of the image, which can be saved as png.
 
-        :return: bytes
+        Returns:
+            bytes
         """
         return self._request_call.content
 
@@ -95,7 +106,8 @@ class Picsum:
 
         Return the url used to retrieve the image (after parsing by Picsum).
 
-        :return: str
+        Returns:
+            str
         """
 
         return self._request_call.url
@@ -106,7 +118,8 @@ class Picsum:
 
         Return the filename to which the image was (or will be) saved.
 
-        :return: str
+        Returns:
+            str
         """
         return self._filename
 
@@ -117,9 +130,11 @@ class Picsum:
         Return a random alphanumeric string of the given length, which will
         be used for the image filename.
 
-        :param int length: desired length of the random string (default: 12)
+        Args:
+            length (int): desired length of the random string (default: 12)
 
-        :return: str
+        Returns:
+            str
         """
         source = ascii_letters + digits
 
@@ -137,11 +152,9 @@ class Picsum:
         saved to the given filename (automatically appending the given
         format suffix).
 
-        :param Optional[str] path: path/filename to save the image
-
-        :param str ext: output file extension (default: png)
-
-        :return:
+        Args:
+            path (Optional[str]): path/filename to save the image
+            ext (str): output file extension (default: png)
         """
         if ext not in ["png", "jpeg", "jpg"]:
             raise ValueError("Filetype not allowed." 
@@ -166,5 +179,3 @@ class Picsum:
             f.write(self.pic)
 
         return
-
-

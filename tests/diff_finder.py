@@ -11,11 +11,12 @@ def equal_imgs(img_1: str, img_2: str) -> bool:
     Compare two images and determine if they are equal, considering their
     size and blue, green, red channels.
 
-    :param str img_1: first image path
+    Args:
+        img_1 (str): first image path
+        img_2 (str): second image path
 
-    :param str img_2: second image path
-
-    :return: bool
+    Returns:
+        bool
     """
 
     original = cv2.imread(img_1)

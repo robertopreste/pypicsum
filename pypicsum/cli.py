@@ -32,9 +32,7 @@ from pypicsum.classes import Picsum
               (default: False)""")
 def main(width, height, image, grayscale, blur,
          save_path, save_ext, show_url):
-    """
-    Retrieve an image from picsum.photos and save it.
-    """
+    """Retrieve an image from picsum.photos and save it."""
     p = Picsum(width, height, image, grayscale, blur)
     p.save(save_path, save_ext)
     click.echo("Image saved to {}".format(p.filename))
