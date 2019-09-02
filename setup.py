@@ -9,11 +9,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=7.0', "requests>=2.21.0"]
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
 
-setup_requirements = ['pytest-runner', ]
-
-test_requirements = ['pytest', ]
+with open("requirements_test.txt") as f:
+    test_requirements = f.read().splitlines()
 
 setup(  # pragma: no cover
     author="Roberto Preste",
@@ -42,7 +42,6 @@ setup(  # pragma: no cover
     keywords='pypicsum',
     name='pypicsum',
     packages=find_packages(include=['pypicsum']),
-    setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/robertopreste/pypicsum',

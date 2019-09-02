@@ -112,7 +112,6 @@ venv.bak/
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 .idea
-
 .idea/cc-pypackage.iml
 .idea/codeStyles/
 .idea/encodings.xml
@@ -234,3 +233,4 @@ pyvenv.cfg
 pip-selfcheck.json
 
 tests/imgs/test_img.png
+.vscode
