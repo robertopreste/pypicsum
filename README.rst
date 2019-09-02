@@ -19,7 +19,7 @@ pypicsum
 
 
 
-Simple Python API to download images from picsum.photo.
+Simple Python API to download images from `picsum.photos`_.
 
 
 * Free software: MIT license
