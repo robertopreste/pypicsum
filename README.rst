@@ -24,6 +24,7 @@ Simple Python API to download images from `picsum.photos`_.
 
 * Free software: MIT license
 * Documentation: https://pypicsum.readthedocs.io
+* GitHub repo: https://github.com/robertopreste/pypicsum
 
 
 Features
